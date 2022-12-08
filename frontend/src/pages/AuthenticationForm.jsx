@@ -1,5 +1,7 @@
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useState } from "react";
+
+import { useSignup } from "../hooks/useSignup";
 import {
   createStyles,
   TextInput,
@@ -31,35 +33,30 @@ const useStyles = createStyles((theme) => ({
       margin: "50px 50px",
     },
   },
+
+  error: {
+    padding: "10px",
+    background: "#ffefef",
+    border: "1px solid #e7195a",
+    color: "#e7195a",
+    borderRadius: "4px",
+    margin: "20px 0",
+  },
 }));
 
 export function AuthenticationForm(props: PaperProps) {
   const { classes } = useStyles();
   const [type, toggle] = useToggle(["login", "register"]);
-  // const form = useForm({
-  //   initialValues: {
-  //     email: "",
-  //     name: "",
-  //     password: "",
-  //     terms: true,
-  //   },
-
-  //   validate: {
-  //     email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
-  //     password: (val) =>
-  //       val.length <= 6
-  //         ? "Password should include at least 6 characters"
-  //         : null,
-  //   },
-  // });
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { signup, error, isLoading } = useSignup();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(name, email, password);
+
+    await signup(name, email, password);
   };
 
   return (
@@ -127,9 +124,12 @@ export function AuthenticationForm(props: PaperProps) {
                 ? "Already have an account? Login"
                 : "Don't have an account? Register"}
             </Anchor>
-            <Button type="submit">{upperFirst(type)}</Button>
+            <Button disabled={isLoading} type="submit">
+              {upperFirst(type)}
+            </Button>
           </Group>
         </form>
+        {error && <div className={classes.error}>{error}</div>}
       </Paper>
     </div>
   );
