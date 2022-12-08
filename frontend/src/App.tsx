@@ -3,6 +3,7 @@ import { MantineProvider } from "@mantine/core";
 
 // imported page
 import Dashboard from "./pages/Dashboard";
+import { AuthenticationForm } from "./pages/AuthenticationForm";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         {/* Routes */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/auth" element={<AuthenticationForm />} />
         </Routes>
       </MantineProvider>
     </Router>
