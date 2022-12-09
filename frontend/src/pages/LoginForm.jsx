@@ -20,17 +20,25 @@ import { GoogleButton, TwitterButton } from "../SocialButtons/SocialButtons";
 //styles
 const useStyles = createStyles((theme) => ({
   container: {
-    margin: "100px 480px",
+    margin: "100px 750px",
+
+    [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
+      margin: "80px 520px",
+    },
 
     [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
-      margin: "20px 200px",
+      margin: "20px 320px",
     },
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-      margin: "20px 200px",
+      margin: "50px 200px",
     },
 
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-      margin: "50px 50px",
+      margin: "50px 100px",
+    },
+
+    [`@media (max-width: ${theme.breakpoints.xs}px)`]: {
+      margin: "50px 20px",
     },
   },
 
