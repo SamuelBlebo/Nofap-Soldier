@@ -1,7 +1,7 @@
-import { useToggle, upperFirst } from "@mantine/hooks";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 
-import { useSignup } from "../hooks/useSignup";
 import {
   createStyles,
   TextInput,
@@ -20,7 +20,7 @@ import { GoogleButton, TwitterButton } from "../SocialButtons/SocialButtons";
 //styles
 const useStyles = createStyles((theme) => ({
   container: {
-    margin: "100px 500px",
+    margin: "100px 480px",
 
     [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
       margin: "20px 200px",
@@ -44,19 +44,16 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function AuthenticationForm(props: PaperProps) {
+export function LoginForm(props: PaperProps) {
   const { classes } = useStyles();
-  const [type, toggle] = useToggle(["login", "register"]);
-
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signup, error, isLoading } = useSignup();
+  const { login, error, isLoading } = useLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(name, email, password);
+    await login(email, password);
   };
 
   return (
@@ -70,7 +67,7 @@ export function AuthenticationForm(props: PaperProps) {
         {...props}
       >
         <Text size="lg" weight={500}>
-          Welcome to Nofap Solder, {type} with
+          Welcome back, login with
         </Text>
 
         <Group grow mb="md" mt="md">
@@ -86,15 +83,6 @@ export function AuthenticationForm(props: PaperProps) {
 
         <form onSubmit={handleSubmit}>
           <Stack>
-            {type === "register" && (
-              <TextInput
-                label="Name"
-                placeholder="Your name"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-            )}
-
             <TextInput
               required
               label="Email"
@@ -113,19 +101,11 @@ export function AuthenticationForm(props: PaperProps) {
           </Stack>
 
           <Group position="apart" mt="xl">
-            <Anchor
-              component="button"
-              type="button"
-              color="dimmed"
-              onClick={() => toggle()}
-              size="xs"
-            >
-              {type === "register"
-                ? "Already have an account? Login"
-                : "Don't have an account? Register"}
+            <Anchor component={Link} to="/signup" color="dimmed" size="xs">
+              Don't have an account? Signup.
             </Anchor>
             <Button disabled={isLoading} type="submit">
-              {upperFirst(type)}
+              login
             </Button>
           </Group>
         </form>
