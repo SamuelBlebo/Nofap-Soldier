@@ -3,6 +3,7 @@ import { MantineProvider } from "@mantine/core";
 
 // imported page and component
 import { HeaderMenu } from "./components/HerderMenu";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import { SignupForm } from "./pages/SignupForm";
 import { LoginForm } from "./pages/LoginForm";
@@ -26,9 +27,16 @@ export default function App() {
         <HeaderMenu />
         {/* Routes */}
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/signup" element={<SignupForm />} />
-          <Route path="/Login" element={<LoginForm />} />
+          <Route path="/login" element={<LoginForm />} />
         </Routes>
       </MantineProvider>
     </Router>

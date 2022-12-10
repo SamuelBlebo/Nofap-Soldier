@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useSignup } from "../hooks/useSignup";
 import {
   createStyles,
@@ -59,11 +60,17 @@ export function SignupForm(props: PaperProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await signup(name, email, password);
+
+    if (user) {
+      // user is authenticated
+      return <Navigate to="/" />;
+    }
   };
 
   return (
