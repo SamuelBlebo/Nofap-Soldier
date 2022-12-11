@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogin } from "../hooks/useLogin";
 
 import {
@@ -57,15 +58,18 @@ export function LoginForm(props: PaperProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, error, isLoading } = useLogin();
-  const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     await login(email, password);
-
-    navigate("/");
   };
+
+  if (user) {
+    // user is authenticated
+    return <Navigate to="/" />;
+  }
 
   return (
     <div>
@@ -77,6 +81,7 @@ export function LoginForm(props: PaperProps) {
         withBorder
         {...props}
       >
+        {error && <div className={classes.error}>{error}</div>}
         <Text size="lg" weight={500}>
           Welcome back, login with
         </Text>
@@ -115,12 +120,11 @@ export function LoginForm(props: PaperProps) {
             <Anchor component={Link} to="/signup" color="dimmed" size="xs">
               Don't have an account? Signup.
             </Anchor>
-            <Button disabled={isLoading} type="submit">
+            <Button color="green.8" disabled={isLoading} type="submit">
               login
             </Button>
           </Group>
         </form>
-        {error && <div className={classes.error}>{error}</div>}
       </Paper>
     </div>
   );

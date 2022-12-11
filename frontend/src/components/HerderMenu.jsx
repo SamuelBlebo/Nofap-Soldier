@@ -11,12 +11,23 @@ import {
   Burger,
   Drawer,
   ScrollArea,
+  Image,
 } from "@mantine/core";
-import { MantineLogo } from "@mantine/ds";
 import { useDisclosure } from "@mantine/hooks";
 import {} from "@tabler/icons";
+import Logo from "../assets/logo.png";
 
 const useStyles = createStyles((theme) => ({
+  logo: {
+    width: 60,
+    marginRight: "auto",
+    marginLeft: "50px",
+    //
+
+    [`@media (max-width: ${theme.breakpoints.xs}px)`]: {
+      width: 150,
+    },
+  },
   link: {
     display: "flex",
     alignItems: "center",
@@ -102,9 +113,13 @@ export function HeaderMenu() {
     <Box>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-          <MantineLogo size={30} />
+          <Link to="/">
+            <div className={classes.logo}>
+              <Image src={Logo} alt="Nofap Soldier Logo" />
+            </div>
+          </Link>
 
-          <Group
+          {/* <Group
             sx={{ height: "100%" }}
             spacing={0}
             className={classes.hiddenMobile}
@@ -122,13 +137,15 @@ export function HeaderMenu() {
             <Link to="/" className={classes.link}>
               Academy
             </Link>
-          </Group>
+          </Group> */}
 
           <Group className={classes.hiddenMobile}>
             {user && (
               <>
                 <span>Hello, {user.name}</span>
-                <Button onClick={handleClick}>Logout</Button>
+                <Button color="green.8" onClick={handleClick}>
+                  Logout
+                </Button>
               </>
             )}
             {!user && (
@@ -136,7 +153,7 @@ export function HeaderMenu() {
                 <Button component={Link} to="/login" variant="default">
                   Log in
                 </Button>
-                <Button component={Link} to="/signup">
+                <Button color="green.8" component={Link} to="/signup">
                   Signup
                 </Button>
               </>
@@ -166,7 +183,7 @@ export function HeaderMenu() {
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
 
-          <Link to={"/"} className={classes.link}>
+          {/* <Link to={"/"} className={classes.link}>
             Home
           </Link>
           <Link to="/" className={classes.link}>
@@ -178,7 +195,7 @@ export function HeaderMenu() {
           </Link>
           <Link to="/" className={classes.link}>
             Academy
-          </Link>
+          </Link> */}
 
           <Divider
             my="sm"
@@ -189,7 +206,9 @@ export function HeaderMenu() {
             {user && (
               <>
                 <span>Hello, {user.name}</span>
-                <Button onClick={handleClick}>Logout</Button>
+                <Button color="green.8" onClick={handleClick}>
+                  Logout
+                </Button>
               </>
             )}
             {!user && (
@@ -197,7 +216,7 @@ export function HeaderMenu() {
                 <Button component={Link} to="/login" variant="default">
                   Log in
                 </Button>
-                <Button component={Link} to="/signup">
+                <Button color="green.8" component={Link} to="/signup">
                   Signup
                 </Button>
               </>

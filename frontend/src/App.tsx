@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import { SignupForm } from "./pages/SignupForm";
 import { LoginForm } from "./pages/LoginForm";
+import { Notfound } from "./pages/Notfound";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
           />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </MantineProvider>
     </Router>

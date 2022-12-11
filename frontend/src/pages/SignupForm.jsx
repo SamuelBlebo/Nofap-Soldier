@@ -66,12 +66,12 @@ export function SignupForm(props: PaperProps) {
     e.preventDefault();
 
     await signup(name, email, password);
-
-    if (user) {
-      // user is authenticated
-      return <Navigate to="/" />;
-    }
   };
+
+  // check if user is authenticated
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div>
@@ -83,6 +83,7 @@ export function SignupForm(props: PaperProps) {
         withBorder
         {...props}
       >
+        {error && <div className={classes.error}>{error}</div>}
         <Text size="lg" weight={500}>
           Welcome, signup with
         </Text>
@@ -128,12 +129,11 @@ export function SignupForm(props: PaperProps) {
             <Anchor component={Link} to="/login" color="dimmed" size="xs">
               Already have an account? Login.
             </Anchor>
-            <Button disabled={isLoading} type="submit">
+            <Button color="green.8" disabled={isLoading} type="submit">
               signup
             </Button>
           </Group>
         </form>
-        {error && <div className={classes.error}>{error}</div>}
       </Paper>
     </div>
   );
