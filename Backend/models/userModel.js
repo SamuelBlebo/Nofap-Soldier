@@ -35,10 +35,10 @@ userSchema.statics.signup = async function (name, email, password) {
     throw Error("Email already in use");
   }
 
-  if (!validator.isStrongPassword(password)) {
+  if (!validator.isStrongPassword(password, { minSymbols: 0 })) {
     throw Error("Password not strong enough");
   }
-
+  //
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 

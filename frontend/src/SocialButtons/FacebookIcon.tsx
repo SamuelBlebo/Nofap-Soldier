@@ -1,4 +1,6 @@
-export function FacebookIcon(props: React.ComponentProps<'svg'>) {
+import React from "react";
+
+export function FacebookIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
       aria-hidden="true"

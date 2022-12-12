@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout.js";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -98,8 +99,10 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export function HeaderMenu() {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
+  const [
+    drawerOpened,
+    { toggle: toggleDrawer, close: closeDrawer },
+  ] = useDisclosure(false);
   const { classes, theme } = useStyles();
 
   // logout

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -10,7 +10,6 @@ import {
   Text,
   Paper,
   Group,
-  PaperProps,
   Button,
   Divider,
   Anchor,
@@ -53,7 +52,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export function SignupForm(props: PaperProps) {
+export function SignupForm() {
   const { classes } = useStyles();
 
   const [name, setName] = useState("");
@@ -75,14 +74,7 @@ export function SignupForm(props: PaperProps) {
 
   return (
     <div>
-      <Paper
-        className={classes.container}
-        radius="md"
-        clear
-        p="xl"
-        withBorder
-        {...props}
-      >
+      <Paper className={classes.container} radius="md" clear p="xl" withBorder>
         {error && <div className={classes.error}>{error}</div>}
         <Text size="lg" weight={500}>
           Welcome, signup with
