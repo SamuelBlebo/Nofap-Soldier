@@ -25,7 +25,9 @@ const useStyles = createStyles((theme) => ({
     //
 
     [`@media (max-width: ${theme.breakpoints.xs}px)`]: {
-      width: 150,
+      width: 60,
+      marginRight: "auto",
+      marginLeft: "20px",
     },
   },
   link: {
