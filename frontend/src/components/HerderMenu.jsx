@@ -14,7 +14,6 @@ import {
   Image,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import {} from "@tabler/icons";
 import Logo from "../assets/logo.png";
 
 const useStyles = createStyles((theme) => ({
