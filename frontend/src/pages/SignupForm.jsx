@@ -17,13 +17,15 @@ import {
 } from "@mantine/core";
 import { GoogleButton, TwitterButton } from "../SocialButtons/SocialButtons";
 
+import { HeaderMenu } from "../components/HerderMenu";
+
 //styles
 const useStyles = createStyles((theme) => ({
   container: {
     margin: "80px 750px",
 
     [`@media (max-width: ${theme.breakpoints.xl}px)`]: {
-      margin: "80px 500px",
+      margin: "30px 500px",
     },
 
     [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
@@ -73,60 +75,69 @@ export function SignupForm() {
   }
 
   return (
-    <div>
-      <Paper className={classes.container} radius="md" clear p="xl" withBorder>
-        {error && <div className={classes.error}>{error}</div>}
-        <Text size="lg" weight={500}>
-          Welcome, signup with
-        </Text>
+    <>
+      <HeaderMenu />;
+      <div>
+        <Paper
+          className={classes.container}
+          radius="md"
+          clear
+          p="xl"
+          withBorder
+        >
+          {error && <div className={classes.error}>{error}</div>}
+          <Text size="lg" weight={500}>
+            Welcome, signup with
+          </Text>
 
-        <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl">Google</GoogleButton>
-          <TwitterButton radius="xl">Twitter</TwitterButton>
-        </Group>
-
-        <Divider
-          label="Or continue with email"
-          labelPosition="center"
-          my="lg"
-        />
-
-        <form onSubmit={handleSubmit}>
-          <Stack>
-            <TextInput
-              label="Name"
-              placeholder="Your name"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-            />
-
-            <TextInput
-              required
-              label="Email"
-              placeholder="hello@mantine.dev"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-
-            <PasswordInput
-              required
-              label="Password"
-              placeholder="Your password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </Stack>
-
-          <Group position="apart" mt="xl">
-            <Anchor component={Link} to="/login" color="dimmed" size="xs">
-              Already have an account? Login.
-            </Anchor>
-            <Button color="green.8" disabled={isLoading} type="submit">
-              signup
-            </Button>
+          <Group grow mb="md" mt="md">
+            <GoogleButton radius="xl">Google</GoogleButton>
+            <TwitterButton radius="xl">Twitter</TwitterButton>
           </Group>
-        </form>
-      </Paper>
-    </div>
+
+          <Divider
+            label="Or continue with email"
+            labelPosition="center"
+            my="lg"
+          />
+
+          <form onSubmit={handleSubmit}>
+            <Stack>
+              <TextInput
+                label="Name"
+                placeholder="Your name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+              />
+
+              <TextInput
+                required
+                label="Email"
+                placeholder="hello@mantine.dev"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+
+              <PasswordInput
+                required
+                label="Password"
+                placeholder="Your password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+            </Stack>
+
+            <Group position="apart" mt="xl">
+              <Anchor component={Link} to="/login" color="dimmed" size="xs">
+                Already have an account? Login.
+              </Anchor>
+              <Button color="green.8" disabled={isLoading} type="submit">
+                signup
+              </Button>
+            </Group>
+          </form>
+        </Paper>
+      </div>
+    </>
   );
 }

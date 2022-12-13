@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogin } from "../hooks/useLogin";
+import { HeaderMenu } from "../components/HerderMenu";
 
 import {
   createStyles,
@@ -71,53 +72,62 @@ export function LoginForm() {
   }
 
   return (
-    <div>
-      <Paper className={classes.container} radius="md" clear p="xl" withBorder>
-        {error && <div className={classes.error}>{error}</div>}
-        <Text size="lg" weight={500}>
-          Welcome back, login with
-        </Text>
+    <>
+      <HeaderMenu />
+      <div>
+        <Paper
+          className={classes.container}
+          radius="md"
+          clear
+          p="xl"
+          withBorder
+        >
+          {error && <div className={classes.error}>{error}</div>}
+          <Text size="lg" weight={500}>
+            Welcome back, login with
+          </Text>
 
-        <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl">Google</GoogleButton>
-          <TwitterButton radius="xl">Twitter</TwitterButton>
-        </Group>
-
-        <Divider
-          label="Or continue with email"
-          labelPosition="center"
-          my="lg"
-        />
-
-        <form onSubmit={handleSubmit}>
-          <Stack>
-            <TextInput
-              required
-              label="Email"
-              placeholder="hello@mantine.dev"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            />
-
-            <PasswordInput
-              required
-              label="Password"
-              placeholder="Your password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            />
-          </Stack>
-
-          <Group position="apart" mt="xl">
-            <Anchor component={Link} to="/signup" color="dimmed" size="xs">
-              Don't have an account? Signup.
-            </Anchor>
-            <Button color="green.8" disabled={isLoading} type="submit">
-              login
-            </Button>
+          <Group grow mb="md" mt="md">
+            <GoogleButton radius="xl">Google</GoogleButton>
+            <TwitterButton radius="xl">Twitter</TwitterButton>
           </Group>
-        </form>
-      </Paper>
-    </div>
+
+          <Divider
+            label="Or continue with email"
+            labelPosition="center"
+            my="lg"
+          />
+
+          <form onSubmit={handleSubmit}>
+            <Stack>
+              <TextInput
+                required
+                label="Email"
+                placeholder="hello@mantine.dev"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
+
+              <PasswordInput
+                required
+                label="Password"
+                placeholder="Your password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+            </Stack>
+
+            <Group position="apart" mt="xl">
+              <Anchor component={Link} to="/signup" color="dimmed" size="xs">
+                Don't have an account? Signup.
+              </Anchor>
+              <Button color="green.8" disabled={isLoading} type="submit">
+                login
+              </Button>
+            </Group>
+          </form>
+        </Paper>
+      </div>
+    </>
   );
 }

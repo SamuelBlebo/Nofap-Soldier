@@ -1,16 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
+import { useAuthContext } from "./hooks/useAuthContext.js";
 
 // imported page and component
-import { HeaderMenu } from "./components/HerderMenu";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import Dashboard from "./pages/Dashboard";
 import { SignupForm } from "./pages/SignupForm";
 import { LoginForm } from "./pages/LoginForm";
 import { Notfound } from "./pages/Notfound";
 
+// User pages and components
+import { Dashboard } from "./pages/user/Dashboard";
+import { NavbarMenu } from "./components/user/NavbarMenu";
+
 export default function App() {
+  const { user } = useAuthContext();
   return (
     <Router>
       <MantineProvider
@@ -26,9 +30,10 @@ export default function App() {
           },
         }}
       >
-        <HeaderMenu />
+        {user && <NavbarMenu />}
         {/* Routes */}
         <Routes>
+          {/* Protected Routes */}
           <Route
             path="/"
             element={

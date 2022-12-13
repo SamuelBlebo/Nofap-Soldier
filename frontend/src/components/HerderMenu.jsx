@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout.js";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext.js";
 import {
   createStyles,
   Header,
@@ -29,6 +29,13 @@ const useStyles = createStyles((theme) => ({
       marginRight: "auto",
       marginLeft: "20px",
     },
+  },
+
+  appName: {
+    fontSize: theme.fontSizes.md,
+    fontWeight: 800,
+    textTransform: "uppercase",
+    marginRight: "auto",
   },
   link: {
     display: "flex",
@@ -122,6 +129,7 @@ export function HeaderMenu() {
               <Image src={Logo} alt="Nofap Soldier Logo" />
             </div>
           </Link>
+          <span className={classes.appName}>Nofap Soldier</span>
 
           {/* <Group
             sx={{ height: "100%" }}
