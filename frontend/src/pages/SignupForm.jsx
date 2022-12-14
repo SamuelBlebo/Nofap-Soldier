@@ -71,7 +71,7 @@ export function SignupForm() {
 
   // check if user is authenticated
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return (
@@ -105,7 +105,7 @@ export function SignupForm() {
             <Stack>
               <TextInput
                 label="Name"
-                placeholder="Your name"
+                placeholder="Your first name or nick name"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
               />

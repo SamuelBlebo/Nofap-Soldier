@@ -3,15 +3,7 @@ import { Link } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout.js";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 
-import {
-  createStyles,
-  Navbar,
-  Group,
-  Code,
-  Button,
-  Aside,
-  Image,
-} from "@mantine/core";
+import { createStyles, Navbar, Group, Image } from "@mantine/core";
 import {
   IconGauge,
   IconTank,
@@ -119,10 +111,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 const data = [
   { link: "/dashboard", label: "Dashboard", icon: IconGauge },
-  { link: "", label: "Battle", icon: IconTank },
-  { link: "", label: "Feed", icon: IconNews },
-  { link: "", label: "Rate us", icon: IconStars },
-  { link: "", label: "Settings", icon: IconSettings },
+  { link: "/battle", label: "Battle", icon: IconTank },
+  { link: "/feed", label: "Feed", icon: IconNews },
+  { link: "/rate-us", label: "Rate us", icon: IconStars },
+  { link: "/settings", label: "Settings", icon: IconSettings },
 ];
 
 export function NavbarMenu() {
@@ -145,8 +137,7 @@ export function NavbarMenu() {
       })}
       to={item.link}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
+      onClick={() => {
         setActive(item.label);
       }}
     >

@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
-import { useAuthContext } from "./hooks/useAuthContext.js";
 
 // imported page and component
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -11,10 +10,12 @@ import { Notfound } from "./pages/Notfound";
 
 // User pages and components
 import { Dashboard } from "./pages/user/Dashboard";
-import { NavbarMenu } from "./components/user/NavbarMenu";
+import { Battle } from "./pages/user/Battle";
+import { Feed } from "./pages/user/Feed";
+import { RateUs } from "./pages/user/RateUs";
+import { Settings } from "./pages/user/Settings";
 
 export default function App() {
-  const { user } = useAuthContext();
   return (
     <Router>
       <MantineProvider
@@ -30,18 +31,50 @@ export default function App() {
           },
         }}
       >
-        {user && <NavbarMenu />}
         {/* Routes */}
         <Routes>
           {/* Protected Routes */}
           <Route
-            path="/"
+            path="/dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/battle"
+            element={
+              <ProtectedRoute>
+                <Battle />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <ProtectedRoute>
+                <Feed />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/rate-us"
+            element={
+              <ProtectedRoute>
+                <RateUs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Settings />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="*" element={<Notfound />} />
