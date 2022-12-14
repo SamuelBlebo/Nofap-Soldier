@@ -71,7 +71,7 @@ export function SignupForm() {
 
   // check if user is authenticated
   if (user) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/" />;
   }
 
   return (

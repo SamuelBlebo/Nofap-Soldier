@@ -68,7 +68,7 @@ export function LoginForm() {
 
   if (user) {
     // user is authenticated
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/" />;
   }
 
   return (
