@@ -110,7 +110,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 const data = [
-  { link: "/dashboard", label: "Dashboard", icon: IconGauge },
+  { link: "/", label: "Dashboard", icon: IconGauge },
   { link: "/battle", label: "Battle", icon: IconTank },
   { link: "/feed", label: "Feed", icon: IconNews },
   { link: "/rate-us", label: "Rate us", icon: IconStars },
@@ -162,17 +162,17 @@ export function NavbarMenu() {
         <Navbar.Section className={classes.footer}>
           {user && (
             <>
-              <a
+              <Link
                 className={classes.link}
                 onClick={(event) => event.preventDefault()}
               >
                 <IconUserCircle className={classes.linkIcon} stroke={1.5} />
                 <span>Hello, {user.name}</span>
-              </a>
-              <a className={classes.link} onClick={handleClick}>
+              </Link>
+              <Link className={classes.link} onClick={handleClick}>
                 <IconLogout className={classes.linkIcon} stroke={1.5} />
                 <span>Logout</span>
-              </a>
+              </Link>
             </>
           )}
         </Navbar.Section>
