@@ -14,6 +14,7 @@ import { Battle } from "./pages/user/Battle";
 import { Feed } from "./pages/user/Feed";
 import { RateUs } from "./pages/user/RateUs";
 import { Settings } from "./pages/user/Settings";
+import { Account } from "./pages/user/Account";
 
 export default function App() {
   return (
@@ -71,6 +72,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
               </ProtectedRoute>
             }
           />

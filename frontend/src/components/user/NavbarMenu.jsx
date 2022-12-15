@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout.js";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 
@@ -92,34 +92,50 @@ const useStyles = createStyles((theme, _params, getRef) => {
     },
 
     linkActive: {
+      ...theme.fn.focusStyles(),
+      display: "flex",
+      alignItems: "center",
+      textDecoration: "none",
+      fontSize: theme.fontSizes.sm,
+      color:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[1]
+          : theme.colors.gray[7],
+      padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+      borderRadius: theme.radius.sm,
+      fontWeight: 500,
+
       "&, &:hover": {
-        backgroundColor: theme.fn.variant({
-          variant: "light",
-          color: "green.9",
-        }).background,
-        color: theme.fn.variant({ variant: "light", color: "dark.9" }).color,
+        backgroundColor:
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[6]
+            : theme.colors.gray[0],
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
+
         [`& .${icon}`]: {
-          color: theme.fn.variant({
+          color: theme.colorScheme === "dark" ? theme.white : theme.black,
+        },
+
+        "&": {
+          backgroundColor: theme.fn.variant({
             variant: "light",
-            color: "dark.9",
-          }).color,
+            color: "green.9",
+          }).background,
+          color: theme.fn.variant({ variant: "light", color: "dark.9" }).color,
+          [`& .${icon}`]: {
+            color: theme.fn.variant({
+              variant: "light",
+              color: "dark.9",
+            }).color,
+          },
         },
       },
     },
   };
 });
 
-const data = [
-  { link: "/", label: "Dashboard", icon: IconGauge },
-  { link: "/battle", label: "Battle", icon: IconTank },
-  { link: "/feed", label: "Feed", icon: IconNews },
-  { link: "/rate-us", label: "Rate us", icon: IconStars },
-  { link: "/settings", label: "Settings", icon: IconSettings },
-];
-
 export function NavbarMenu() {
-  const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Dashboard");
+  const { classes } = useStyles();
 
   // logout
   const { logout } = useLogout();
@@ -129,22 +145,6 @@ export function NavbarMenu() {
     e.preventDefault();
     logout();
   };
-
-  const links = data.map((item) => (
-    <Link
-      className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
-      })}
-      to={item.link}
-      key={item.label}
-      onClick={() => {
-        setActive(item.label);
-      }}
-    >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </Link>
-  ));
 
   return (
     <>
@@ -156,23 +156,69 @@ export function NavbarMenu() {
             </div>
             <span className={classes.appName}>Nofap Soldier</span>
           </Group>
-          {links}
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? classes.linkActive : classes.link
+            }
+            to="/"
+          >
+            <IconGauge className={classes.linkIcon} stroke={1.5} />
+            <span>Dashboard</span>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? classes.linkActive : classes.link
+            }
+            to="/battle"
+          >
+            <IconTank className={classes.linkIcon} stroke={1.5} />
+            <span>Battle</span>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? classes.linkActive : classes.link
+            }
+            to="/feed"
+          >
+            <IconNews className={classes.linkIcon} stroke={1.5} />
+            <span>Feed</span>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? classes.linkActive : classes.link
+            }
+            to="/rate-us"
+          >
+            <IconStars className={classes.linkIcon} stroke={1.5} />
+            <span>Rate Us</span>
+          </NavLink>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? classes.linkActive : classes.link
+            }
+            to="/settings"
+          >
+            <IconSettings className={classes.linkIcon} stroke={1.5} />
+            <span>Settings</span>
+          </NavLink>
         </Navbar.Section>
 
         <Navbar.Section className={classes.footer}>
           {user && (
             <>
-              <Link
-                className={classes.link}
-                onClick={(event) => event.preventDefault()}
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? classes.linkActive : classes.link
+                }
+                to="/account"
               >
                 <IconUserCircle className={classes.linkIcon} stroke={1.5} />
                 <span>Hello, {user.name}</span>
-              </Link>
-              <Link className={classes.link} onClick={handleClick}>
+              </NavLink>
+              <NavLink className={classes.link} onClick={handleClick}>
                 <IconLogout className={classes.linkIcon} stroke={1.5} />
                 <span>Logout</span>
-              </Link>
+              </NavLink>
             </>
           )}
         </Navbar.Section>
