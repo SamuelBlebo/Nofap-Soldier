@@ -35,6 +35,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
       textTransform: "uppercase",
     },
 
+    nav: {
+      height: "100vh",
+    },
+
     header: {
       paddingBottom: theme.spacing.md,
       marginBottom: theme.spacing.md * 1.5,
@@ -148,7 +152,7 @@ export function NavbarMenu() {
 
   return (
     <>
-      <Navbar height={600} width={{ sm: 300 }} p="md">
+      <Navbar className={classes.nav} width={{ base: 300 }} p="xs">
         <Navbar.Section grow>
           <Group className={classes.header} position="apart">
             <div className={classes.logo}>
