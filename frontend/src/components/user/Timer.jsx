@@ -1,23 +1,73 @@
 import React, { useState, useEffect } from "react";
 
 import { createStyles } from "@mantine/core";
+import { IconBomb, IconPlayerPlay } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
   timer: {
-    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  streak: {
+    fontSize: "15px",
+    fontWeight: "700",
   },
 
   time: {
-    borderRadius: "20px",
-    padding: "20px",
-    backgroundColor: "#EBFBEE",
+    display: "flex",
+    width: "200px",
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "10px",
+    padding: "5px",
+    margin: "20px 0",
+    p: {
+      fontSize: "10px",
+    },
+    "&:hover": {
+      backgroundColor: "#EBFBEE",
+    },
   },
-  streak: {
-    fontWeight: "900",
+
+  days: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    margin: "10px",
+  },
+
+  sup: {
+    fontSize: "15px",
   },
 
   relapse: {
-    display: "inline-block",
+    display: "flex",
+    justifyContent: "space-evenly",
+  },
+
+  rItem: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    border: " 0.2px solid #e8e8e8",
+    borderRadius: "5px",
+    marginLeft: "5px",
+    padding: "0px 10px",
+    backgroundColor: "#fff",
+
+    h4: {
+      fontSize: "12px",
+    },
+
+    "&:hover": {
+      backgroundColor: "#EBFBEE",
+    },
   },
 }));
 
@@ -42,32 +92,48 @@ export function Timer() {
 
   return (
     <div className={classes.timer}>
-      <div className={classes.streak}>STREAK</div>
+      <h1 className={classes.streak}>STREAK</h1>
       <div className={classes.time}>
         {/* Days */}
         <div className={classes.days}>
-          {"0" + Math.floor(time / 86400000)} Days
+          <h1> {"0" + Math.floor(time / 86400000)} </h1> <p> Days</p>
         </div>
-        <div>
-          {/* Hrs */}
-          <span>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}hrs</span>
-          {/* minutes */}
-          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}mins</span>
-          {/* seconds */}
+        {/* Hour */}
+        <div className={classes.days}>
+          <h1>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}</h1>
+          <p>Hours</p>
         </div>
-        <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)} sec</span>{" "}
-        <div id="buttons">
-          {!timerOn && <button onClick={() => setTimerOn(true)}>Start</button>}
+        {/* Min */}
+        <div className={classes.days}>
+          <h1>
+            {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
+            <sup className={classes.sup}>
+              {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
+            </sup>
+          </h1>
+          <p> Mins</p>
         </div>
       </div>
 
       <div className={classes.relapse}>
-        <hr />
-        <span>BEST {/*BEST*/} </span>
-        <span> {<button onClick={() => setTime(0)}>Relapse</button>} </span>
-        <span>ATTEMPTS {/*BEST*/} </span>
+        <div className={classes.rItem}>
+          <h4>BEST</h4> <p>00</p>
+        </div>
+        {!timerOn && (
+          <div className={classes.rItem}>
+            <IconPlayerPlay onClick={() => setTimerOn(true)} />
+          </div>
+        )}
 
-        <hr />
+        {timerOn && (
+          <div className={classes.rItem}>
+            {<IconBomb onClick={() => setTime(0)} />}
+          </div>
+        )}
+
+        <div className={classes.rItem}>
+          <h4>ATT</h4> <p>00</p>
+        </div>
       </div>
     </div>
   );

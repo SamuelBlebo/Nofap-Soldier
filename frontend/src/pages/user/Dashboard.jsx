@@ -8,8 +8,7 @@ import { Timer } from "../../components/user/Timer";
 
 const useStyles = createStyles((theme) => ({
   root: {
-    marginLeft: 30,
-    marginRight: 30,
+    margin: "20px 30px",
 
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       marginBottom: 35,
@@ -27,8 +26,11 @@ const useStyles = createStyles((theme) => ({
   },
 
   iconBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#F8F9FA",
-    paddingTop: 50,
+    paddingTop: 25,
     paddingBottom: 20,
     paddingLeft: 20,
     paddingRight: 20,
