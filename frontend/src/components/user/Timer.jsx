@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useDisclosure } from "@mantine/hooks";
 
-import { createStyles } from "@mantine/core";
+import { createStyles, Popover, Text } from "@mantine/core";
 import { IconBomb, IconPlayerPlay } from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
@@ -75,6 +76,7 @@ export function Timer() {
   const { classes } = useStyles();
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
+  const [opened, { close, open }] = useDisclosure(false);
 
   useEffect(() => {
     let interval = null;
@@ -120,15 +122,55 @@ export function Timer() {
           <h4>BEST</h4> <p>00</p>
         </div>
         {!timerOn && (
-          <div className={classes.rItem}>
-            <IconPlayerPlay onClick={() => setTimerOn(true)} />
-          </div>
+          <Popover
+            width={200}
+            position="bottom"
+            withArrow
+            shadow="md"
+            opened={opened}
+          >
+            <Popover.Target>
+              <div
+                onMouseEnter={open}
+                onMouseLeave={close}
+                className={classes.rItem}
+              >
+                <IconPlayerPlay onClick={() => setTimerOn(true)} />
+              </div>
+            </Popover.Target>
+            <Popover.Dropdown sx={{ pointerEvents: "none" }}>
+              <Text size="sm">
+                Click to start your Nofap Journey. The Goal is to hit 90 days of
+                Nofap as a Soldier
+              </Text>
+            </Popover.Dropdown>
+          </Popover>
         )}
 
         {timerOn && (
-          <div className={classes.rItem}>
-            {<IconBomb onClick={() => setTime(0)} />}
-          </div>
+          <Popover
+            width={200}
+            position="bottom"
+            withArrow
+            shadow="md"
+            opened={opened}
+          >
+            <Popover.Target>
+              <div
+                onMouseEnter={open}
+                onMouseLeave={close}
+                className={classes.rItem}
+              >
+                {<IconBomb onClick={() => setTime(0)} />}
+              </div>
+            </Popover.Target>
+            <Popover.Dropdown sx={{ pointerEvents: "none" }}>
+              <Text size="sm">
+                If you click on this, you reset your counter. Which means you
+                Relapsed.
+              </Text>
+            </Popover.Dropdown>
+          </Popover>
         )}
 
         <div className={classes.rItem}>
