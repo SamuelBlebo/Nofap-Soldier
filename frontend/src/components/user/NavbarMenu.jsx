@@ -18,27 +18,6 @@ import Logo from "../../assets/logo.png";
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
-    logo: {
-      width: 60,
-      marginRight: "auto",
-      //
-
-      [`@media (max-width: ${theme.breakpoints.xs}px)`]: {
-        width: 60,
-        marginRight: "auto",
-      },
-    },
-
-    appName: {
-      fontSize: theme.fontSizes.md,
-      fontWeight: 800,
-      textTransform: "uppercase",
-    },
-
-    nav: {
-      height: "100vh",
-    },
-
     header: {
       paddingBottom: theme.spacing.md,
       marginBottom: theme.spacing.md * 1.5,
@@ -154,12 +133,6 @@ export function NavbarMenu() {
     <>
       <Navbar className={classes.nav} width={{ base: 300 }} p="xs">
         <Navbar.Section grow>
-          <Group className={classes.header} position="apart">
-            <div className={classes.logo}>
-              <Image src={Logo} alt="Nofap Soldier Logo" />
-            </div>
-            <span className={classes.appName}>Nofap Soldier</span>
-          </Group>
           <NavLink
             className={({ isActive }) =>
               isActive ? classes.linkActive : classes.link

@@ -218,17 +218,27 @@ export function HeaderMenu() {
             {user && (
               <>
                 <span>Hello, {user.name}</span>
-                <Button color="green.8" onClick={handleClick}>
+                <Button color="green.8" onClick={(closeDrawer, handleClick)}>
                   Logout
                 </Button>
               </>
             )}
             {!user && (
               <>
-                <Button component={Link} to="/login" variant="default">
+                <Button
+                  component={Link}
+                  to="/login"
+                  variant="default"
+                  onClick={closeDrawer}
+                >
                   Log in
                 </Button>
-                <Button color="green.8" component={Link} to="/signup">
+                <Button
+                  color="green.8"
+                  component={Link}
+                  to="/signup"
+                  onClick={closeDrawer}
+                >
                   Signup
                 </Button>
               </>

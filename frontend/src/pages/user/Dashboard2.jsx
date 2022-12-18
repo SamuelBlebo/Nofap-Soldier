@@ -83,7 +83,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
   };
 });
 
-export function Feed() {
+export function Dashboard2() {
   const { classes } = useStyles();
 
   const theme = useMantineTheme();
@@ -136,7 +136,22 @@ export function Feed() {
       }
     >
       <div className={classes.root}>
-        <h1>Feed</h1>
+        <Grid gutter="md">
+          <Grid.Col md={4} lg={4}>
+            <div className={classes.iconBox}>
+              <Timer />
+            </div>
+          </Grid.Col>
+          <Grid.Col md={4} lg={8}>
+            <div className={classes.iconBox}></div>
+          </Grid.Col>
+          <Grid.Col md={4} lg={7}>
+            <div className={classes.iconBox}></div>
+          </Grid.Col>
+          <Grid.Col md={4} lg={5}>
+            <div className={classes.iconBox}></div>
+          </Grid.Col>
+        </Grid>
       </div>
     </AppShell>
   );

@@ -19,7 +19,7 @@ const useStyles = createStyles((theme) => ({
   time: {
     display: "flex",
     width: "200px",
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F9FA",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "10px",
@@ -59,7 +59,7 @@ const useStyles = createStyles((theme) => ({
     borderRadius: "5px",
     marginLeft: "5px",
     padding: "0px 10px",
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F9FA",
 
     h4: {
       fontSize: "12px",
