@@ -74,9 +74,14 @@ const useStyles = createStyles((theme) => ({
 
 export function Timer() {
   const { classes } = useStyles();
-  const [time, setTime] = useState(0);
+  const initialState = () => Number(window.localStorage.getItem("time")) || 0;
+  const [time, setTime] = useState(initialState);
   const [timerOn, setTimerOn] = useState(false);
   const [opened, { close, open }] = useDisclosure(false);
+
+  useEffect(() => {
+    localStorage.setItem("time", time);
+  }, [time]);
 
   useEffect(() => {
     let interval = null;
