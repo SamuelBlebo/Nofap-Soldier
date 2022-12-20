@@ -115,7 +115,7 @@ export function SignupForm() {
                 label="Email"
                 placeholder="hello@mantine.dev"
                 onChange={(e) => setEmail(e.target.value)}
-                value={email}
+                value={email.toLowerCase()}
               />
 
               <PasswordInput
