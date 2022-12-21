@@ -17,6 +17,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  streak: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Streak",
+    },
+  ],
 });
 
 // static signup method
