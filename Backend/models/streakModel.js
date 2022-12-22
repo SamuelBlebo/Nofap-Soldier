@@ -5,13 +5,13 @@ const Schema = mongoose.Schema;
 const streakSchema = new Schema(
   {
     streak: {
-      type: Date,
+      type: String,
     },
 
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    // },
   },
   { timestamps: true }
 );

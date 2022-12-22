@@ -1,4 +1,4 @@
-require("dotenv").config({});
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -17,10 +17,17 @@ app.use((req, res, next) => {
   next();
 });
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
 //Routes
 app.use(defaultRoutes);
 app.use("/api/user", userRoutes);
-app.use(cors("/api", streakRoutes));
+app.use("/api/streak", streakRoutes);
 
 // connect to db
 mongoose

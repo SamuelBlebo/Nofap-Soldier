@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   AppShell,
   Header,
@@ -79,16 +78,16 @@ export function Dashboard() {
   const { classes } = useStyles();
 
   useEffect(() => {
+    const fetchStreak = async () => {
+      const response = await fetch("http://localhost:4000/api/streak");
+      const json = await response.json();
+
+      if (response.ok) {
+        setStreak(json);
+      }
+    };
     fetchStreak();
   }, []);
-
-  const fetchStreak = async () => {
-    // fetch the streaks
-    const res = await axios.get("http://localhost:4000/api/streak/");
-
-    //set the state
-    console.log(res);
-  };
 
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -144,6 +143,8 @@ export function Dashboard() {
           <Grid.Col md={4} lg={4}>
             <div className={classes.iconBox}>
               <Timer />
+              {/* {streak &&
+                streak.map((streak) => <p key={streak._id}>{streak.streak}</p>)} */}
             </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>
