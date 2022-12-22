@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   AppShell,
   Header,
-  Footer,
-  Aside,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
@@ -20,7 +18,6 @@ import { NavbarMenu } from "../../components/user/NavbarMenu";
 import { Timer } from "../../components/user/Timer";
 
 const useStyles = createStyles((theme, _params, getRef) => {
-  const icon = getRef("icon");
   return {
     logo: {
       width: 60,
@@ -78,7 +75,20 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 export function Dashboard() {
+  const [streak, setStreak] = useState(null);
   const { classes } = useStyles();
+
+  useEffect(() => {
+    fetchStreak();
+  }, []);
+
+  const fetchStreak = async () => {
+    // fetch the streaks
+    const res = await axios.get("http://localhost:4000/api/streak/");
+
+    //set the state
+    console.log(res);
+  };
 
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);

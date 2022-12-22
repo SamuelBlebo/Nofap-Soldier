@@ -1,10 +1,11 @@
 require("dotenv").config({});
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const defaultRoutes = require("./routes/defaultRoutes");
 const userRoutes = require("./routes/user");
-const streakRoutes = require("./Routes/streakRoutes");
+const streakRoutes = require("./routes/streakRoutes");
 
 // express app
 const app = express();
@@ -19,7 +20,7 @@ app.use((req, res, next) => {
 //Routes
 app.use(defaultRoutes);
 app.use("/api/user", userRoutes);
-app.use("/api/streak", streakRoutes);
+app.use(cors("/api", streakRoutes));
 
 // connect to db
 mongoose

@@ -12,7 +12,10 @@ const router = express.Router();
 // set user Streak
 router.post("/streak", setStreak);
 
-// get User streak
+// get Streaks
+router.get("/streak", getStreak);
+
+// get single streak
 router.get("/streak/:id", getStreak);
 
 // Reset streak

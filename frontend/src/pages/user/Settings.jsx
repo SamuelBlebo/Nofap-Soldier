@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import {
   AppShell,
   Header,
-  Footer,
-  Aside,
-  Text,
   MediaQuery,
   Burger,
   useMantineTheme,
@@ -12,15 +9,12 @@ import {
   Navbar,
   Group,
   Image,
-  Grid,
 } from "@mantine/core";
 import Logo from "../../assets/logo.png";
 
 import { NavbarMenu } from "../../components/user/NavbarMenu";
-import { Timer } from "../../components/user/Timer";
 
 const useStyles = createStyles((theme, _params, getRef) => {
-  const icon = getRef("icon");
   return {
     logo: {
       width: 60,

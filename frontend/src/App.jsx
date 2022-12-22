@@ -15,7 +15,6 @@ import { Feed } from "./pages/user/Feed";
 import { RateUs } from "./pages/user/RateUs";
 import { Settings } from "./pages/user/Settings";
 import { Account } from "./pages/user/Account";
-import { Dashboard2 } from "./pages/user/Dashboard";
 
 export default function App() {
   return (

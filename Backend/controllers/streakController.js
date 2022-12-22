@@ -7,20 +7,16 @@ const mongoose = require("mongoose");
 
 const setStreak = async (req, res) => {
   try {
-  const streak = await Streak.Create({
-    streak: req.body.date,
-    user: req.user._id,
-  });
+    const streak = await Streak.Create({
+      streak: req.body.date,
+      user: req.user._id,
+    });
 
-  res.status(200).json(streak);
-
-  } catch(err){
+    res.status(200).json(streak);
+  } catch (err) {
     console.log(err);
-    res,status(400)
+    res, status(400);
   }
-
-
-
 };
 
 // @desc    Get streak
@@ -28,9 +24,9 @@ const setStreak = async (req, res) => {
 // @access  Private
 
 const getStreak = async (req, res) => {
-
+  const user_id = req.user._id;
   try {
-    const streak = await Streak.findOne(_id: noteId, req.params._id);
+    const streak = await Streak.find(user_id);
 
     if (!streak) {
       res.status(400);
@@ -38,12 +34,10 @@ const getStreak = async (req, res) => {
     }
 
     res.status(200).json(streak);
-
-  } catch(err){
+  } catch (err) {
     console.log(err);
-    res,status(400)
+    res, status(400);
   }
-  
 };
 
 // @desc    Reset streak
@@ -52,18 +46,17 @@ const getStreak = async (req, res) => {
 
 const resetStreak = async (req, res) => {
   try {
-  const streak = await Streak.findOne(req.params.id);
+    const streak = await Streak.findOne(req.params.id);
 
-  const resetGoal = await Streak.findOneAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+    const resetGoal = await Streak.findOneAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
 
-  res.status(200).json(resetStreak);
-  } catch(err){
+    res.status(200).json(resetStreak);
+  } catch (err) {
     console.log(err);
-    res,status(400)
+    res, status(400);
   }
-
 };
 
-module.exports = { getStreak, setStreak, resetStreak }; 
+module.exports = { getStreak, setStreak, resetStreak };

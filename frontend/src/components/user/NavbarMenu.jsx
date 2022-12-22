@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout.js";
 import { useAuthContext } from "../../hooks/useAuthContext.js";
 
-import { createStyles, Navbar, Group, Image } from "@mantine/core";
+import { createStyles, Navbar } from "@mantine/core";
 import {
   IconGauge,
   IconTank,
@@ -13,7 +13,6 @@ import {
   IconUserCircle,
   IconStars,
 } from "@tabler/icons";
-import Logo from "../../assets/logo.png";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
