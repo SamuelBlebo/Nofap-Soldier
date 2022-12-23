@@ -74,7 +74,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 export function Dashboard() {
-  const [streak, setStreak] = useState(null);
+  const [streak, setStreak] = useState([]);
   const { classes } = useStyles();
 
   useEffect(() => {
@@ -143,8 +143,7 @@ export function Dashboard() {
           <Grid.Col md={4} lg={4}>
             <div className={classes.iconBox}>
               <Timer />
-              {/* {streak &&
-                streak.map((streak) => <p key={streak._id}>{streak.streak}</p>)} */}
+              <p>{setStreak.date}</p>
             </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>

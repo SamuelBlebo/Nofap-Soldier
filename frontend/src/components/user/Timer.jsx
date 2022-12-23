@@ -79,6 +79,33 @@ export function Timer() {
   const [timerOn, setTimerOn] = useState(false);
   const [opened, { close, open }] = useDisclosure(false);
 
+  const [error, setError] = useState(null);
+
+  const startStreak = async () => {
+    const date = new Date().toLocaleDateString();
+
+    const streak = { date };
+
+    // Posing a new data
+    const res = await fetch("http://localhost:4000/api/streak", {
+      method: "POST",
+      body: JSON.stringify(streak),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      setError(json.error);
+    }
+    if (res.ok) {
+      setError(null);
+      console.log("date added successfully");
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("time", time);
   }, [time]);
@@ -126,6 +153,7 @@ export function Timer() {
         <div className={classes.rItem}>
           <h4>BEST</h4> <p>00</p>
         </div>
+
         {!timerOn && (
           <Popover
             width={200}
@@ -140,7 +168,11 @@ export function Timer() {
                 onMouseLeave={close}
                 className={classes.rItem}
               >
-                <IconPlayerPlay onClick={() => setTimerOn(true)} />
+                <IconPlayerPlay
+                  // type="submit"
+                  // setTimerOn(true),
+                  onClick={() => startStreak()}
+                />
               </div>
             </Popover.Target>
             <Popover.Dropdown sx={{ pointerEvents: "none" }}>
@@ -152,6 +184,7 @@ export function Timer() {
           </Popover>
         )}
 
+        {/* Reset */}
         {timerOn && (
           <Popover
             width={200}
