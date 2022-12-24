@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   AppShell,
   Header,
@@ -74,7 +75,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 export function Dashboard() {
-  const [streak, setStreak] = useState([]);
+  const [streak, setStreak] = useState(null);
   const { classes } = useStyles();
 
   useEffect(() => {
@@ -88,6 +89,14 @@ export function Dashboard() {
     };
     fetchStreak();
   }, []);
+
+  // const streakDate = new Date(`${setStreak.date}`);
+  // const dateNow = new Date(Date.now());
+
+  console.log(streak.date);
+  // console.log(dateNow);
+
+  const NumberOfDays = (dateNow.getTime() - streakDate.getTime()) / 86400000;
 
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -143,7 +152,10 @@ export function Dashboard() {
           <Grid.Col md={4} lg={4}>
             <div className={classes.iconBox}>
               <Timer />
-              <p>{setStreak.date}</p>
+              {streak &&
+                streak.map((streak) => <p key={streak._id}>{streak.date}</p>)}
+
+              {NumberOfDays}
             </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>
