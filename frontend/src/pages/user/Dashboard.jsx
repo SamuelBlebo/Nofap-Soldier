@@ -75,28 +75,35 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 export function Dashboard() {
-  const [streak, setStreak] = useState([]);
+  const [streaks, setStreaks] = useState([]);
   const { classes } = useStyles();
 
-  useEffect(() => {
-    const fetchStreak = async () => {
-      const response = await fetch("http://localhost:4000/api/streak");
-      const json = await response.json();
+  const fetchStreaks = () => {
+    axios.get("http://localhost:4000/api/streak").then((res) => {
+      let streak = res.data.date;
+      console.log(streak);
+    });
+  };
 
-      if (response.ok) {
-        setStreak(json);
-      }
-    };
-    fetchStreak();
+  useEffect(() => {
+    // const fetchStreaks = async () => {
+    //   const response = await fetch("http://localhost:4000/api/streak");
+    //   const json = await response.json();
+
+    //   if (response.ok) {
+    //     setStreaks(json);
+    //   }
+    // };
+    fetchStreaks();
   }, []);
 
   // const streakDate = new Date(`${setStreak.date}`);
   // const dateNow = new Date(Date.now());
 
-  console.log(streak.date);
+  // streaks && console.log("streaks", setStreaks.date);
   // console.log(dateNow);
 
-  const NumberOfDays = (dateNow.getTime() - streakDate.getTime()) / 86400000;
+  // const NumberOfDays = (dateNow.getTime() - streakDate.getTime()) / 86400000;
 
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
@@ -152,14 +159,10 @@ export function Dashboard() {
           <Grid.Col md={4} lg={4}>
             <div className={classes.iconBox}>
               <Timer />
-<<<<<<< HEAD
-              {streak &&
-                streak.map((streak) => <p key={streak._id}>{streak.date}</p>)}
+              {streaks &&
+                streaks.map((streak) => <p key={streak._id}>{streak.date}</p>)}
 
-              {NumberOfDays}
-=======
-              <p>{setStreak.date}</p>
->>>>>>> 7eba8220ac2ab23f2b4d15ab573dc132c1086945
+              {/* {NumberOfDays} */}
             </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>
