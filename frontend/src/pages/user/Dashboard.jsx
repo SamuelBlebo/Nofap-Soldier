@@ -78,32 +78,23 @@ export function Dashboard() {
   const [streaks, setStreaks] = useState([]);
   const { classes } = useStyles();
 
-  const fetchStreaks = () => {
-    axios.get("http://localhost:4000/api/streak").then((res) => {
-      let streak = res.data.date;
-      console.log(streak);
-    });
-  };
-
   useEffect(() => {
-    // const fetchStreaks = async () => {
-    //   const response = await fetch("http://localhost:4000/api/streak");
-    //   const json = await response.json();
+    const fetchStreaks = async () => {
+      const response = await fetch("http://localhost:4000/api/streak");
+      const json = await response.json();
 
-    //   if (response.ok) {
-    //     setStreaks(json);
-    //   }
-    // };
+      if (response.ok) {
+        setStreaks(json);
+      }
+    };
     fetchStreaks();
   }, []);
 
-  // const streakDate = new Date(`${setStreak.date}`);
-  // const dateNow = new Date(Date.now());
+  const streak = streaks.date;
+  console.log(streak);
 
-  // streaks && console.log("streaks", setStreaks.date);
-  // console.log(dateNow);
-
-  // const NumberOfDays = (dateNow.getTime() - streakDate.getTime()) / 86400000;
+  const dateNow = new Date();
+  console.log(dateNow.getTime());
 
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);

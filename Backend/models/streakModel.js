@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const streakSchema = new Schema(
   {
     date: {
-      type: String,
+      type: Date,
     },
 
     // user: {

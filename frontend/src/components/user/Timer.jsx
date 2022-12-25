@@ -82,7 +82,7 @@ export function Timer() {
   const [error, setError] = useState(null);
 
   const startStreak = async () => {
-    const date = new Date().toLocaleDateString();
+    const date = new Date();
 
     const streak = { date };
 
