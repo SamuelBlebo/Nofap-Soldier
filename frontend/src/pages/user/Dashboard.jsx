@@ -75,8 +75,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 export function Dashboard() {
-  const [streaks, setStreaks] = useState([]);
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
   const { classes } = useStyles();
+  const [streaks, setStreaks] = useState([]);
 
   useEffect(() => {
     const fetchStreaks = async () => {
@@ -90,14 +92,23 @@ export function Dashboard() {
     fetchStreaks();
   }, []);
 
-  const streak = streaks.date;
-  console.log(streak);
+  if (!streaks || streaks.length === 0) return null;
+
+  const streak = streaks[0];
+  const date = new Date(`${streak.date}`);
+
+  console.log(date);
 
   const dateNow = new Date();
   console.log(dateNow.getTime());
 
-  const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
+  // Time difference between two dates
+
+  const timeDiff = dateNow.getTime() - date.getTime();
+  console.log(timeDiff);
+  const dayDiff = timeDiff / 86400000;
+  console.log(dayDiff);
+
   return (
     <AppShell
       styles={{
