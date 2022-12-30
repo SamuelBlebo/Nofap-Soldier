@@ -16,9 +16,9 @@ router.post("/", setStreak);
 router.get("/", getStreak);
 
 // get single streak
-router.get("/:id", getStreak);
+router.get("/", getStreak);
 
 // Reset streak
-router.put("/:id", resetStreak);
+router.put("/", resetStreak);
 
 module.exports = router;

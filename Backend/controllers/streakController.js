@@ -16,9 +16,9 @@ const getStreak = async (req, res) => {
 // @access  Private
 
 const setStreak = async (req, res) => {
-  const { date } = req.body;
+  const { date, attempts } = req.body;
 
-  const streak = await Streak.create({ date });
+  const streak = await Streak.create({ date, attempts });
 
   res.status(200).json(streak);
 };
@@ -29,16 +29,14 @@ const setStreak = async (req, res) => {
 
 const resetStreak = async (req, res) => {
   try {
-    const streak = await Streak.findOne(req.params.id);
-
     const resetGoal = await Streak.findOneAndUpdate(req.body, {
       new: true,
     });
 
-    response.status(200).json(resetStreak);
+    res.status(200).json(resetStreak);
   } catch (err) {
     console.log(err);
-    response.status(400);
+    res.status(400);
   }
 };
 

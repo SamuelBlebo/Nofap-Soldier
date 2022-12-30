@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
-
+import axios from "axios";
 import { createStyles, Popover, Text } from "@mantine/core";
 import { IconBomb, IconPlayerPlay } from "@tabler/icons";
 
@@ -78,6 +78,7 @@ export function Timer() {
   const [timerOn, setTimerOn] = useState(false);
   const [opened, { close, open }] = useDisclosure(false);
   const [streaks, setStreaks] = useState([]);
+  let [attempts, setAttempts] = useState(0);
 
   const [error, setError] = useState(null);
 
@@ -86,7 +87,7 @@ export function Timer() {
     const streak = { date };
 
     // Posing a new data
-    const res = await fetch("http://localhost:4000/api/streak", {
+    const res = await fetch("/api/streak", {
       method: "POST",
       body: JSON.stringify(streak),
       headers: {
@@ -100,6 +101,28 @@ export function Timer() {
     if (res.ok) {
       setError(null);
       console.log("date added successfully");
+    }
+  };
+
+  const resetStreak = async () => {
+    const date = new Date();
+    const attempts = { attempts };
+
+    // Posing a new data
+    const response = await fetch("/api/streak", {
+      method: "PUT",
+      body: JSON.stringify(date, attempts),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
+      setError(null);
+      console.log("updated successfully");
     }
   };
 
@@ -117,10 +140,15 @@ export function Timer() {
     return () => clearInterval(interval);
   }, [timerOn]);
 
+  const handleAttempts = (e) => {
+    e.preventDefault();
+    setAttempts(attempts++);
+  };
+
   //Fetching Streaks
   useEffect(() => {
     const fetchStreaks = async () => {
-      const response = await fetch("http://localhost:4000/api/streak");
+      const response = await fetch("/api/streak");
       const json = await response.json();
 
       if (response.ok) {
@@ -200,33 +228,16 @@ export function Timer() {
 
         {/* Reset */}
         {timerOn && (
-          <Popover
-            width={200}
-            position="bottom"
-            withArrow
-            shadow="md"
-            opened={opened}
+          <div
+            className={classes.rItem}
+            onClick={(handleAttempts, resetStreak)}
           >
-            <Popover.Target>
-              <div
-                onMouseEnter={open}
-                onMouseLeave={close}
-                className={classes.rItem}
-              >
-                {<IconBomb onClick={() => setTime(0)} />}
-              </div>
-            </Popover.Target>
-            <Popover.Dropdown sx={{ pointerEvents: "none" }}>
-              <Text size="sm">
-                If you click on this, you reset your counter. Which means you
-                Relapsed.
-              </Text>
-            </Popover.Dropdown>
-          </Popover>
+            <IconBomb />
+          </div>
         )}
 
         <div className={classes.rItem}>
-          <h4>ATT</h4> <p>00</p>
+          <h4>ATT</h4> <p>{attempts}</p>
         </div>
       </div>
     </div>

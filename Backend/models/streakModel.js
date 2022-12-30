@@ -7,6 +7,10 @@ const streakSchema = new Schema(
     date: {
       type: Date,
     },
+    attempts: {
+      type: String,
+      default: 0,
+    },
 
     // user: {
     //   type: mongoose.Schema.Types.ObjectId,
