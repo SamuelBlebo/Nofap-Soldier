@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import {
   AppShell,
   Header,
@@ -78,36 +77,6 @@ export function Dashboard() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const { classes } = useStyles();
-  const [streaks, setStreaks] = useState([]);
-
-  useEffect(() => {
-    const fetchStreaks = async () => {
-      const response = await fetch("http://localhost:4000/api/streak");
-      const json = await response.json();
-
-      if (response.ok) {
-        setStreaks(json);
-      }
-    };
-    fetchStreaks();
-  }, []);
-
-  if (!streaks || streaks.length === 0) return null;
-
-  const streak = streaks[0];
-  const date = new Date(`${streak.date}`);
-
-  console.log(date);
-
-  const dateNow = new Date();
-  console.log(dateNow.getTime());
-
-  // Time difference between two dates
-
-  const timeDiff = dateNow.getTime() - date.getTime();
-  console.log(timeDiff);
-  const dayDiff = timeDiff / 86400000;
-  console.log(dayDiff);
 
   return (
     <AppShell
@@ -161,10 +130,6 @@ export function Dashboard() {
           <Grid.Col md={4} lg={4}>
             <div className={classes.iconBox}>
               <Timer />
-              {streaks &&
-                streaks.map((streak) => <p key={streak._id}>{streak.date}</p>)}
-
-              {/* {NumberOfDays} */}
             </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>

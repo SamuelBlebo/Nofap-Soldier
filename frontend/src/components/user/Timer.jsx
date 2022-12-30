@@ -74,16 +74,15 @@ const useStyles = createStyles((theme) => ({
 
 export function Timer() {
   const { classes } = useStyles();
-  const initialState = () => Number(window.localStorage.getItem("time")) || 0;
-  const [time, setTime] = useState(initialState);
+  const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
   const [opened, { close, open }] = useDisclosure(false);
+  const [streaks, setStreaks] = useState([]);
 
   const [error, setError] = useState(null);
 
   const startStreak = async () => {
     const date = new Date();
-
     const streak = { date };
 
     // Posing a new data
@@ -94,9 +93,7 @@ export function Timer() {
         "Content-Type": "application/json",
       },
     });
-
     const json = await res.json();
-
     if (!res.ok) {
       setError(json.error);
     }
@@ -105,10 +102,6 @@ export function Timer() {
       console.log("date added successfully");
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("time", time);
-  }, [time]);
 
   useEffect(() => {
     let interval = null;
@@ -124,25 +117,46 @@ export function Timer() {
     return () => clearInterval(interval);
   }, [timerOn]);
 
+  //Fetching Streaks
+  useEffect(() => {
+    const fetchStreaks = async () => {
+      const response = await fetch("http://localhost:4000/api/streak");
+      const json = await response.json();
+
+      if (response.ok) {
+        setStreaks(json);
+      }
+    };
+    fetchStreaks();
+
+    setTimerOn(true);
+  }, []);
+
+  if (!streaks || streaks.length === 0) return null;
+  const streak = streaks[0];
+  const date = new Date(`${streak.date}`);
+  const dateNow = new Date();
+  const timeDiff = dateNow.getTime() - date.getTime();
+
   return (
     <div className={classes.timer}>
       <h1 className={classes.streak}>STREAK</h1>
       <div className={classes.time}>
         {/* Days */}
         <div className={classes.days}>
-          <h1> {"0" + Math.floor(time / 86400000)} </h1> <p> Days</p>
+          <h1> {"0" + Math.floor(timeDiff / 86400000)} </h1> <p> Days</p>
         </div>
         {/* Hour */}
         <div className={classes.days}>
-          <h1>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}</h1>
+          <h1>{("0" + Math.floor((timeDiff / 3600000) % 24)).slice(-2)}</h1>
           <p>Hours</p>
         </div>
         {/* Min */}
         <div className={classes.days}>
           <h1>
-            {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
+            {("0" + Math.floor((timeDiff / 60000) % 60)).slice(-2)}
             <sup className={classes.sup}>
-              {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
+              {("0" + Math.floor((timeDiff / 1000) % 60)).slice(-2)}
             </sup>
           </h1>
           <p> Mins</p>
