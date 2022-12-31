@@ -82,50 +82,6 @@ export function Timer() {
 
   const [error, setError] = useState(null);
 
-  const startStreak = async () => {
-    const date = new Date();
-    const streak = { date };
-
-    // Posing a new data
-    const res = await fetch("/api/streak", {
-      method: "POST",
-      body: JSON.stringify(streak),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json = await res.json();
-    if (!res.ok) {
-      setError(json.error);
-    }
-    if (res.ok) {
-      setError(null);
-      console.log("date added successfully");
-    }
-  };
-
-  const resetStreak = async () => {
-    const date = new Date();
-    const attempts = { attempts };
-
-    // Posing a new data
-    const response = await fetch("/api/streak", {
-      method: "PUT",
-      body: JSON.stringify(date, attempts),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json = await response.json();
-    if (!response.ok) {
-      setError(json.error);
-    }
-    if (response.ok) {
-      setError(null);
-      console.log("updated successfully");
-    }
-  };
-
   useEffect(() => {
     let interval = null;
 
@@ -139,6 +95,52 @@ export function Timer() {
 
     return () => clearInterval(interval);
   }, [timerOn]);
+
+  const startStreak = async () => {
+    const date = new Date();
+    let attempts = 1;
+    const streak = { date, attempts };
+
+    // Posting a new data
+    const res = await fetch("/api/streak", {
+      method: "POST",
+      body: JSON.stringify(streak),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      setError(json.error);
+    }
+    if (res.ok) {
+      setError(null);
+      console.log("added successfully");
+      setTimerOn(true);
+    }
+  };
+
+  const resetStreak = async () => {
+    const { date } = new Date();
+    const { attempts } = { attempts };
+
+    // Posing a new data
+    const response = await fetch("/api/streak", {
+      method: "PUT",
+      body: JSON.stringify(date, attempts),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.text();
+    if (!response.ok) {
+      setError(json.error);
+    }
+    if (response.ok) {
+      setError(null);
+      console.log("updated successfully");
+    }
+  };
 
   const handleAttempts = (e) => {
     e.preventDefault();
@@ -210,11 +212,7 @@ export function Timer() {
                 onMouseLeave={close}
                 className={classes.rItem}
               >
-                <IconPlayerPlay
-                  // type="submit"
-                  // setTimerOn(true),
-                  onClick={() => startStreak()}
-                />
+                <IconPlayerPlay type="submit" onClick={() => startStreak()} />
               </div>
             </Popover.Target>
             <Popover.Dropdown sx={{ pointerEvents: "none" }}>

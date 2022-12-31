@@ -15,9 +15,6 @@ router.post("/", setStreak);
 // get Streaks
 router.get("/", getStreak);
 
-// get single streak
-router.get("/", getStreak);
-
 // Reset streak
 router.put("/", resetStreak);
 

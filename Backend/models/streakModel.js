@@ -8,7 +8,7 @@ const streakSchema = new Schema(
       type: Date,
     },
     attempts: {
-      type: String,
+      type: Number,
       default: 0,
     },
 
