@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 // @access  Private
 
 const getStreak = async (req, res) => {
-  const streak = await Streak.find();
+  const streak = await Streak.find({ user: req.user_id });
 
   res.status(200).json(streak);
 };
@@ -18,7 +18,7 @@ const getStreak = async (req, res) => {
 const setStreak = async (req, res) => {
   const { date, attempts } = req.body;
 
-  const streak = await Streak.create({ date, attempts });
+  const streak = await Streak.create({ date, attempts, user: req.user._id });
 
   res.status(200).json(streak);
 };
