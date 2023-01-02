@@ -18,7 +18,7 @@ const getStreak = async (req, res) => {
 const setStreak = async (req, res) => {
   const { date, attempts } = req.body;
 
-  const streak = await Streak.create({ date, attempts, user: req.user._id });
+  const streak = await Streak.create({ date, attempts });
 
   res.status(200).json(streak);
 };

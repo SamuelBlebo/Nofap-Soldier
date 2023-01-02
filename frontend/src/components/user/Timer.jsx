@@ -96,6 +96,27 @@ export function Timer() {
     return () => clearInterval(interval);
   }, [timerOn]);
 
+  //Fetching Streaks
+  useEffect(() => {
+    const fetchStreaks = async () => {
+      const response = await fetch("/api/streak");
+      const json = await response.json();
+
+      if (response.ok) {
+        setStreaks(json);
+      }
+    };
+    fetchStreaks();
+
+    setTimerOn(true);
+  }, []);
+
+  if (!streaks || streaks.length === 0) return null;
+  const streak = streaks[0];
+  const date = new Date(`${streak.date}`);
+  const dateNow = new Date();
+  const timeDiff = dateNow.getTime() - date.getTime();
+
   const startStreak = async () => {
     const date = new Date();
     let attempts = 1;
@@ -146,27 +167,6 @@ export function Timer() {
     e.preventDefault();
     setAttempts(attempts++);
   };
-
-  //Fetching Streaks
-  useEffect(() => {
-    const fetchStreaks = async () => {
-      const response = await fetch("/api/streak");
-      const json = await response.json();
-
-      if (response.ok) {
-        setStreaks(json);
-      }
-    };
-    fetchStreaks();
-
-    setTimerOn(true);
-  }, []);
-
-  if (!streaks || streaks.length === 0) return null;
-  const streak = streaks[0];
-  const date = new Date(`${streak.date}`);
-  const dateNow = new Date();
-  const timeDiff = dateNow.getTime() - date.getTime();
 
   return (
     <div className={classes.timer}>
