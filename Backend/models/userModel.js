@@ -19,7 +19,7 @@ const userSchema = new Schema({
   },
   streak: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Streak",
     },
   ],

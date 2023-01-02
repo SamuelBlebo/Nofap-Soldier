@@ -79,22 +79,23 @@ export function Timer() {
   const [opened, { close, open }] = useDisclosure(false);
   const [streaks, setStreaks] = useState([]);
   let [attempts, setAttempts] = useState(0);
+  let [timeDiff, setTimeDiff] = useState(0);
 
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    let interval = null;
+  // useEffect(() => {
+  //   let interval = null;
 
-    if (timerOn) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1000);
-      }, 1000);
-    } else if (!timerOn) {
-      clearInterval(interval);
-    }
+  //   if (timerOn) {
+  //     interval = setInterval(() => {
+  //       setTime((prevTime) => prevTime + 1000);
+  //     }, 1000);
+  //   } else if (!timerOn) {
+  //     clearInterval(interval);
+  //   }
 
-    return () => clearInterval(interval);
-  }, [timerOn]);
+  //   return () => clearInterval(interval);
+  // }, [timerOn]);
 
   //Fetching Streaks
   useEffect(() => {
@@ -105,18 +106,20 @@ export function Timer() {
       if (response.ok) {
         setStreaks(json);
       }
+      if (streaks.length > 0) {
+        const streak = streaks[0];
+        const date = new Date(`${streak.date}`);
+        const dateNow = new Date();
+
+        setTimeDiff(dateNow.getTime() - date.getTime());
+        setTimerOn(true);
+      }
     };
+
     fetchStreaks();
+  }, [streaks, timeDiff]);
 
-    setTimerOn(true);
-  }, []);
-
-  if (!streaks || streaks.length === 0) return null;
-  const streak = streaks[0];
-  const date = new Date(`${streak.date}`);
-  const dateNow = new Date();
-  const timeDiff = dateNow.getTime() - date.getTime();
-
+  // Start Streak
   const startStreak = async () => {
     const date = new Date();
     let attempts = 1;

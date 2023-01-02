@@ -4,17 +4,17 @@ const Schema = mongoose.Schema;
 
 const streakSchema = new Schema(
   {
+    // userId: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
     date: {
       type: Date,
     },
     attempts: {
       type: Number,
       default: 0,
-    },
-
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
     },
   },
   { timestamps: true }
