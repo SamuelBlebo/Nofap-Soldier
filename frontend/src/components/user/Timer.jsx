@@ -81,6 +81,7 @@ export function Timer() {
   const [streaks, setStreaks] = useState([]);
   let [attempts, setAttempts] = useState(0);
   let [timeDiff, setTimeDiff] = useState(0);
+  let [best, setBest] = useState(0);
 
   const [error, setError] = useState(null);
 
@@ -160,13 +161,19 @@ export function Timer() {
     }
   };
 
+  let day = "0" + Math.floor(timeDiff / 86400000);
+
+  if (day > 0) {
+    setBest(day);
+  }
+
   return (
     <div className={classes.timer}>
       <h1 className={classes.streak}>STREAK</h1>
       <div className={classes.time}>
         {/* Days */}
         <div className={classes.days}>
-          <h1> {"0" + Math.floor(timeDiff / 86400000)} </h1> <p> Days</p>
+          <h1> {day} </h1> <p> Days</p>
         </div>
         {/* Hour */}
         <div className={classes.days}>
@@ -187,7 +194,7 @@ export function Timer() {
 
       <div className={classes.relapse}>
         <div className={classes.rItem}>
-          <h4>BEST</h4> <p>00</p>
+          <h4>BEST</h4> <p>{best}</p>
         </div>
 
         {!timerOn && (
