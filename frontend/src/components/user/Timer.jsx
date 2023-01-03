@@ -76,7 +76,6 @@ const useStyles = createStyles((theme) => ({
 
 export function Timer() {
   const { classes } = useStyles();
-  const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
   const [opened, { close, open }] = useDisclosure(false);
   const [streaks, setStreaks] = useState([]);
@@ -110,8 +109,6 @@ export function Timer() {
 
     fetchStreaks();
   }, [streaks, timeDiff, attempts]);
-
-  console.log(attempts);
 
   // Start Streak
   const startStreak = async () => {
@@ -161,8 +158,6 @@ export function Timer() {
       setError(null);
       console.log("updated successfully");
     }
-
-    console.log(attempts);
   };
 
   return (
