@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: {
-    type: Date,
+    type: String,
   },
   email: {
     type: String,
@@ -17,12 +17,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  // streak: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "Streak",
-  //   },
-  // ],
 });
 
 // static signup method

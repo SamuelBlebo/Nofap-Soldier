@@ -4,6 +4,8 @@ import axios from "axios";
 import { createStyles, Popover, Text } from "@mantine/core";
 import { IconBomb, IconPlayerPlay } from "@tabler/icons";
 
+import { useAuthContext } from "../../hooks/useAuthContext.js";
+
 const useStyles = createStyles((theme) => ({
   timer: {
     display: "flex",
@@ -83,19 +85,7 @@ export function Timer() {
 
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   let interval = null;
-
-  //   if (timerOn) {
-  //     interval = setInterval(() => {
-  //       setTime((prevTime) => prevTime + 1000);
-  //     }, 1000);
-  //   } else if (!timerOn) {
-  //     clearInterval(interval);
-  //   }
-
-  //   return () => clearInterval(interval);
-  // }, [timerOn]);
+  const { user } = useAuthContext();
 
   //Fetching Streaks
   useEffect(() => {
@@ -106,24 +96,30 @@ export function Timer() {
       if (response.ok) {
         setStreaks(json);
       }
-      if (streaks.length > 0) {
+
+      if (response.ok && streaks.length > 0) {
         const streak = streaks[0];
         const date = new Date(`${streak.date}`);
         const dateNow = new Date();
 
+        setAttempts(streak.attempts);
         setTimeDiff(dateNow.getTime() - date.getTime());
         setTimerOn(true);
       }
     };
 
     fetchStreaks();
-  }, [streaks, timeDiff]);
+  }, [streaks, timeDiff, attempts]);
+
+  console.log(attempts);
 
   // Start Streak
   const startStreak = async () => {
+    const userEmail = user.email;
     const date = new Date();
-    let attempts = 1;
-    const streak = { date, attempts };
+    const streak = { date, userEmail };
+
+    console.log(streak);
 
     // Posting a new data
     const res = await fetch("/api/streak", {
@@ -145,13 +141,14 @@ export function Timer() {
   };
 
   const resetStreak = async () => {
-    const { date } = new Date();
-    const { attempts } = { attempts };
+    const date = new Date();
+    attempts = parseInt(attempts) + 1;
+    const userEmail = user.email;
 
     // Posing a new data
     const response = await fetch("/api/streak", {
       method: "PUT",
-      body: JSON.stringify(date, attempts),
+      body: JSON.stringify({ date, attempts, userEmail }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -164,11 +161,8 @@ export function Timer() {
       setError(null);
       console.log("updated successfully");
     }
-  };
 
-  const handleAttempts = (e) => {
-    e.preventDefault();
-    setAttempts(attempts++);
+    console.log(attempts);
   };
 
   return (
@@ -229,16 +223,13 @@ export function Timer() {
 
         {/* Reset */}
         {timerOn && (
-          <div
-            className={classes.rItem}
-            onClick={(handleAttempts, resetStreak)}
-          >
+          <div className={classes.rItem} onClick={resetStreak}>
             <IconBomb />
           </div>
         )}
 
         <div className={classes.rItem}>
-          <h4>ATT</h4> <p>{attempts}</p>
+          <h4>ATT</h4> <p>{`${attempts}`}</p>
         </div>
       </div>
     </div>
