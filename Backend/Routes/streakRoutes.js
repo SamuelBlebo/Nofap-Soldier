@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/", setStreak);
 
 // get Streaks
-router.get("/", getStreak);
+router.get("/:userEmail", getStreak);
 
 // Reset streak
 router.put("/", resetStreak);

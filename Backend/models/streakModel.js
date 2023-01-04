@@ -14,6 +14,11 @@ const streakSchema = new Schema(
       type: String,
       default: 0,
     },
+
+    best: {
+      type: String,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

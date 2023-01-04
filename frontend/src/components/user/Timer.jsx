@@ -90,14 +90,19 @@ export function Timer() {
   //Fetching Streaks
   useEffect(() => {
     const fetchStreaks = async () => {
-      const response = await fetch("/api/streak");
+      const response = await fetch(`/api/streak/${user.email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const json = await response.json();
 
       if (response.ok) {
         setStreaks(json);
       }
 
-      if (response.ok && streaks.length > 0) {
+      if (streaks && streaks.length > 0) {
         const streak = streaks[0];
         const date = new Date(`${streak.date}`);
         const dateNow = new Date();
@@ -105,11 +110,18 @@ export function Timer() {
         setAttempts(streak.attempts);
         setTimeDiff(dateNow.getTime() - date.getTime());
         setTimerOn(true);
+        setBest(streak.best);
       }
     };
 
     fetchStreaks();
   }, [streaks, timeDiff, attempts]);
+
+  //Set best days
+  let day = Math.floor(timeDiff / 86400000);
+  if (day > 0 && day > best) {
+    setBest(day);
+  }
 
   // Start Streak
   const startStreak = async () => {
@@ -140,13 +152,14 @@ export function Timer() {
 
   const resetStreak = async () => {
     const date = new Date();
+    best = parseInt(best);
     attempts = parseInt(attempts) + 1;
     const userEmail = user.email;
 
     // Posing a new data
     const response = await fetch("/api/streak", {
       method: "PUT",
-      body: JSON.stringify({ date, attempts, userEmail }),
+      body: JSON.stringify({ best, date, attempts, userEmail }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -160,12 +173,6 @@ export function Timer() {
       console.log("updated successfully");
     }
   };
-
-  let day = "0" + Math.floor(timeDiff / 86400000);
-
-  if (day > 0) {
-    setBest(day);
-  }
 
   return (
     <div className={classes.timer}>

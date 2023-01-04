@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 // @access  Private
 
 const getStreak = async (req, res) => {
-  const streak = await Streak.find({ user: req.user_id });
+  const streak = await Streak.find({ userEmail: req.params.userEmail });
 
   res.status(200).json(streak);
 };
@@ -16,12 +16,13 @@ const getStreak = async (req, res) => {
 // @access  Private
 
 const setStreak = async (req, res) => {
-  const { date, attempts, userEmail } = req.body;
+  const { best, date, attempts, userEmail } = req.body;
 
   try {
     const streak = await Streak.create({
       userEmail,
       date,
+      best,
     });
     res.status(200).json(streak);
   } catch (error) {
@@ -34,7 +35,7 @@ const setStreak = async (req, res) => {
 // @access  Private
 
 const resetStreak = async (req, res) => {
-  const { userEmail, date, attempts } = req.body;
+  const { best, userEmail, date, attempts } = req.body;
 
   try {
     const resetGoal = await Streak.findOneAndUpdate(
@@ -42,6 +43,7 @@ const resetStreak = async (req, res) => {
       {
         date,
         attempts,
+        best,
       }
     );
 
