@@ -232,9 +232,27 @@ export function Timer() {
 
         {/* Reset */}
         {timerOn && (
-          <div className={classes.rItem} onClick={resetStreak}>
-            <IconBomb />
-          </div>
+          <Popover
+            width={200}
+            position="bottom"
+            withArrow
+            shadow="md"
+            opened={opened}
+          >
+            <Popover.Target>
+              <div
+                onMouseEnter={open}
+                onMouseLeave={close}
+                className={classes.rItem}
+                onClick={resetStreak}
+              >
+                <IconBomb />
+              </div>
+            </Popover.Target>
+            <Popover.Dropdown sx={{ pointerEvents: "none" }}>
+              <Text size="sm">Clicking will reset your streak.</Text>
+            </Popover.Dropdown>
+          </Popover>
         )}
 
         <div className={classes.rItem}>
