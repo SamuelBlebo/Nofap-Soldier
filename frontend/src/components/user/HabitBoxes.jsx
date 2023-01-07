@@ -70,6 +70,7 @@ export function HabitBoxes() {
         slideGap="sm"
         align="start"
         slidesToScroll={1}
+        withControls={false}
         className={classes.carousel}
       >
         <Carousel.Slide>

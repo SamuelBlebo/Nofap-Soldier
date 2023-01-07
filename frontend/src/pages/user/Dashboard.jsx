@@ -16,6 +16,7 @@ import Logo from "../../assets/logo.png";
 import { NavbarMenu } from "../../components/user/NavbarMenu";
 import { Timer } from "../../components/user/Timer";
 import { HabitBoxes } from "../../components/user/HabitBoxes";
+import { Quotes } from "../../components/user/Quotes";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   return {
@@ -134,7 +135,9 @@ export function Dashboard() {
             </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>
-            <div className={classes.iconBox}></div>
+            <div className={classes.iconBox}>
+              <Quotes />
+            </div>
           </Grid.Col>
           <Grid.Col md={4} lg={8}>
             <div className={classes.iconBox}>
