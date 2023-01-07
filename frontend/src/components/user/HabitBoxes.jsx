@@ -49,6 +49,19 @@ const useStyle = createStyles((theme) => ({
 
 export function HabitBoxes() {
   const { classes } = useStyle();
+  const initialCount = localStorage.getItem("count") || 0;
+  const day = localStorage.getItem("day" || 0);
+  const [count, setCount] = useState(initialCount);
+
+  const CountUp = () => {
+    setCount(parseInt(count) + 1);
+    localStorage.setItem("count", count + 1);
+  };
+  const CountDown = () => {
+    setCount(parseInt(count) - 1);
+    localStorage.setItem("count", count - 1);
+  };
+
   return (
     <>
       <Carousel
@@ -63,10 +76,12 @@ export function HabitBoxes() {
           <div className={classes.box}>
             <h2>WORKOUT</h2>
             <IconBarbell className={classes.habitIcon} />
-            <p>1/7</p>
+            <p>
+              {count} / {day}
+            </p>
             <div className={classes.arrow}>
-              <IconChevronUp />
-              <IconChevronDown />
+              <IconChevronUp onClick={CountUp} />
+              <IconChevronDown onClick={CountDown} />
             </div>
           </div>
         </Carousel.Slide>

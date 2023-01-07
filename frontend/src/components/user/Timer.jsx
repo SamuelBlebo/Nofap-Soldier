@@ -121,6 +121,7 @@ export function Timer() {
   let day = Math.floor(timeDiff / 86400000);
   if (day > 0 && day > best) {
     setBest(day);
+    localStorage.setItem("day", day);
   }
 
   // Start Streak
