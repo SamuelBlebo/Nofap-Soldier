@@ -5,7 +5,7 @@ import {} from "@tabler/icons";
 import { createStyles } from "@mantine/core";
 
 const useStyle = createStyles((theme) => ({
-  quotes: {
+  container: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -14,9 +14,21 @@ const useStyle = createStyles((theme) => ({
     width: "100%",
     margin: "0 60px",
   },
+  quote: {
+    backgroundColor: "#F8F9FA",
+    borderRadius: "10px",
+    padding: "25px 50px",
+
+    "&:hover": {
+      backgroundColor: "#EBFBEE",
+    },
+  },
+
+  dailyQuote: { margin: "0px 0px 20px 0px" },
+  quotes: {},
 
   author: {
-    alignSelf: "flex-end",
+    alignSelf: "flex-start",
   },
 }));
 
@@ -40,10 +52,19 @@ export function Quotes() {
 
   return (
     <>
-      <div className={classes.quotes}>
-        <p>"{quoteData}"</p>
-        <br />
-        <p className={classes.author}> -{quoteAuthor}</p>
+      <div className={classes.container}>
+        <div className={classes.dailyQuote}>
+          <h4>DAILY QUOTE</h4>
+        </div>
+        <div className={classes.quote}>
+          <div className={classes.quotes}>
+            <p>"{quoteData}"</p>
+            <br />
+          </div>
+          <div className={classes.author}>
+            <p> -{quoteAuthor}</p>
+          </div>
+        </div>
       </div>
     </>
   );

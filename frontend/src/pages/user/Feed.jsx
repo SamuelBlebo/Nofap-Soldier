@@ -13,6 +13,7 @@ import {
 import Logo from "../../assets/logo.png";
 
 import { NavbarMenu } from "../../components/user/NavbarMenu";
+import { Feeds } from "../../components/user/Feeds";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   return {
@@ -131,6 +132,7 @@ export function Feed() {
     >
       <div className={classes.root}>
         <h1>Feed</h1>
+        <Feeds />
       </div>
     </AppShell>
   );
